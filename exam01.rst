@@ -4,159 +4,359 @@ Git练习题（A）
 单项选择题
 -----------
 
-1. 如果提示提交内容为空、不能提交，则最为合适的处理方式是：_____
+1. JS特性不包括：_____
 
-   a) 执行 ``git status`` 查看状态，再执行 ``git add`` 命令选择要提交的文件，然后提交。
-   b) 执行 ``git commit --allow-empty`` ，允许空提交。
-   c) 执行 ``git commit -a`` ，提交所有改动。
-   d) 执行 ``git commit --amend`` 进行修补提交。
-
-2. 如果把项目中文件 ``hello.c`` 的内容破坏了，如何使其还原至原始版本？ _____
-
-   a) ``git reset -- hello.c``
-   b) ``git checkout HEAD -- hello.c``
-   c) ``git revert hello.c``
-   d) ``git update hello.c``
-
-3. 修改的文档 ``meeting.doc`` 尚未提交，因为错误地执行了 ``git reset --hard`` 导致数据丢失。丢失的数据能找回么？ _____
-
-   a) 不能。执行硬重置使工作区文件被覆盖，导致数据丢失无法找回。
-   b) 能。可以通过 ``git checkout HEAD@{1} -- meeting.doc`` 找回。
-   c) 不确定。如果在重置前执行了 ``git add`` 命令将 ``meeting.doc`` 加入了暂存区，则可以在对象库中处于悬空状态的文件中找到。
-   d) 不能。因为未提交所以无法找回。
-
-4. 仅将工作区中修改的文件添加到暂存区（新增文件不添加），以备提交，用什么命令标记最快？ _____
-
-   a) ``git add -A``
-   b) ``git add -p``
-   c) ``git add -i``
-   d) ``git add -u``
-
-5. 下面哪一个命令\ **不**\ 会改变提交历史？ _____
-
-   a) ``git reset --hard HEAD~1``
-   b) ``git checkout HEAD^^ .``
-   c) ``git rebase -i HEAD^^``
-   d) ``git commit --amend``
-
-6. 我使用和其他人不一样的IDE软件，总是在目录下生成以 ``.xx`` 为后缀的临时文件。如何避免由于自己的误操作导致此类文件被添加到版本库中呢？ _____
-
-   a) 执行 ``git clean -f`` 删除临时性文件。
-   b) 向版本库中添加一个 ``.gitignore`` 文件，其中包含一条内容为 ``*.xx`` 的记录。
-   c) 在文件 ``.git/info/exclude`` 中添加一条内容为 ``*.xx`` 的记录。
-   d) 更换另外一款IDE软件。
-
-7. 项目跨平台导致文件中的换行符不一致。其中有 Linux 格式换行符（0A），也有DOS格式换行符（0D 0A）。要如何避免此类情况呢？ _____
-
-   a) 修改 ``/etc/gitattributes`` 文件，在其中包含一条内容为 ``* text=auto`` 的设置。
-   b) 执行命令 ``git config --global core.autocrlf true`` 。
-   c) 执行命令 ``git config --global core.autocrlf input`` 。
-   d) 向版本库中添加一个 ``.gitattributes`` 文件，在其中包含一条内容为 ``* text=auto`` 的设置。
-
-8. 下列对于版本库授权说法正确的是：_____
-
-   a) 可以为分支或路径设置不同的写入权限，但不能设置不同的读取权限。
-   b) 除管理员外，版本库的创建者都可以为自己创建的版本库授权。
-   c) 只要通过授权后，便不能限制所推送的提交的署名作者，可以是任何人。
-   d) 如果没有向版本库的写入权限，就一定没有读取权限。
-
-9. 取消服务器版本库中ID为 ``a2387`` 的提交，而且不能引起历史提交的变更，用什么操作？ _____
-
-   a) ``git rebase -i a2387^``
-   b) ``git checkout a2387^ -- .``
-   c) ``git revert a2387``
-   d) ``git reset --hard a2387^``
-
-10. 从版本库中的历史提交中彻底移除ID为 ``a2387`` 的提交，用什么操作？ _____
-
-    a) ``git reset --hard a2387^``
-    b) ``git checkout a2387^ -- .``
-    c) ``git revert a2387``
-    d) ``git rebase --onto a2387^ a2387 HEAD``
-
-11. 所有改动的文件都已加入暂存区，若希望将其中的 ``other.py`` 文件下次再提交，如何操作？ _____
-
-    a) ``git reset -- other.py``
-    b) ``git checkout -- other.py``
-    c) ``git checkout HEAD other.py``
-    d) ``git reset --hard -- other.py``
-
-12. 若产品的版本号显示为 ``1.7.10.rc0-33-g9678d-dirty`` ，可以判断出此版本号是如何生成的么？ _____
-
-    a) ``git tag``
-    b) ``git describe --tags --always --dirty``
-    c) ``git name-rev HEAD``
-    d) ``git --version``
-
-13. 关于 ``git clone`` 下面说法\ **错误**\ 的是：_____
-
-    a) 克隆时所有分支均被克隆，但只有HEAD指向的分支被检出。
-    b) 可以通过 ``git clone --single-branch`` 命令实现只克隆一个分支。
-    c) 克隆出的工作区中执行 ``git log``\ 、\ ``git status``\ 、\ ``git checkout``\ 、\ ``git commit``\ 等操作不会去访问远程版本库。
-    d) 克隆时只有远程版本库HEAD指向的分支被克隆。
-
-14. 关于删除分支 ``XX`` ，下列说法正确的是： _____
-
-    a) 执行 ``git push origin :XX`` 来删除远程版本库的 ``XX`` 分支。
-    b) 执行 ``git branch -D XX`` 删除分支，总是能成功。
-    c) 远程版本库删除的分支，在执行 ``git fetch`` 时本地分支自动删除。
-    d) 本地删除的分支，执行 ``git push`` 时，远程分支亦自动删除。
-
-15. 下面的操作中哪一个不能确认维护分支 ``maint`` 上所有的 bugfix 提交均已合并至当前分支 ``master`` 中。 _____
-
-    a) ``git rev-list ..maint`` 的输出为空。
-    b) 在 ``maint`` 分支成功地执行 ``git merge master``\ 。
-    c) ``git log ..maint`` 的输出为空。
-    d) 新版本发布，在 ``maint`` 分支执行 ``git merge --ff-only master`` 成功。
-
-16. 一个图片文件 ``logo.png`` 冲突了，如何取出他人的版本。 _____
-
-    a) ``git show :1:./logo.png > logo.png-theirs``
-    b) ``git show :2:./logo.png > logo.png-theirs``
-    c) ``git show :3:./logo.png > logo.png-theirs``
-    d) ``git show :0:./logo.png > logo.png-theirs``
-
-17. 工作在特性分支，常常因为执行 ``git push`` 默认推送所有本地和远程共有分支，导致非当前分支报告 non-fast-forward 错误。如果设置只推送当前分支可避免此类问题。下面操作正确的是：_____
-
-    a) ``git config --global push.default upstream``
-    b) ``git config --global pull.rebase true``
-    c) ``git config --global receive.denyDeletes true``
-    d) ``git config --global pager.status true``
-
-18. 关于对象库（.git/objects）说法\ **错误**\ 的是：_____
-
-    a) 两个内容相同文件名不同的文件，在对象库中仅有一个拷贝。
-    b) 对象库执行 ``git gc`` 操作后，reflog 会被清空导致其中记录的未跟踪提交及指向的文件被丢弃。
-    c) 删除文件后，再通过添加相同文件找回，不会造成版本库的冗余。
-    d) 对象库并非一直保持最优存储，而是通过周期性地执行 ``git gc`` 优化版本库。
-
-19. 关于子模组\ **错误**\ 的说法是：_____
-
-    a) 克隆父版本库，默认不会克隆子模组版本库。
-    b) 子模组可以嵌套。执行 ``git submodule update --recursive`` 可对嵌套子模组进行更新。
-    c) 子模组和父版本库的新提交，要先推送父版本库，后推送子模组。
-    d) 子模组检出处于分离头指针状态（gitlink的指向），在子模组中工作需要手动切换分支。
-
-20. 当一个提交说明显示为 ``souce code refactor (fix #529)`` ，下面哪个说法是正确的？ _____
-
-    a) 这个提交只是代码重构，并未修复任何东西，因此没有改变版本库的提交历史。
-    b) 这个提交修正了第529号提交，没有改变版本库的提交历史。
-    c) 这个提交撤销了第529号提交，改变了版本库的提交历史。
-    d) 这个提交和项目的缺陷跟踪平台（如Redmine）关联，并会更新相关问题的状态。
-
-..
-   19. 显示工作区中哪些文件被忽略，可用命令：_____
+   a) 解释性
+   b) 用于客户端
+   c) 基于对象
+   d) 面向对象
    
-       a) ``git status -s``
-       b) ``git status --ignored -s``
-       c) ``git stauts -v``
-       d) ``git clean -n``
+2、下列哪个符合javascript一般命名规范（  ）
+A、命名构造函数person  
+B、命名方法setName  
+C、属性名animal name 
+D、属性名NameAnimal
+E、常量名asiaticPuppy
+3、某网页中有一个窗体对象其名称是mainForm,该窗体对象的第一个元素是按钮,其名称 是myButton,表述该按钮对象的方法是(    )  A.document.forms.myButton   B.document.mainForm.myButton  C.document.forms[0].element[0]  D.以上都可以 4、JS语句                                                      
+var a1=10; var a2=20; 
+alert(“a1+a2=”+a1+a2) 将显示(   )结果 
+A.a1+a2=30  B.a1+a2=1020   C.a1+a2=a1+a2
+5、在HTML页面中，CSS样式的属性名为background-image对应的style对象的属性名是
+（  ） 
+A.background  B.backgroungImage C.image D.background
+6、HMTL表单的首要标记是<form>,<form>标记的参数method表示表单发送的方法，可能为get或post，下列关于get和post的描述正确的是（  ）
+ A.post方法传递的数据对客户端是不可见的 
+B.get请求信息以查询字符串的形式发送，查询字符串长度没有大小限制 C.post方法对发送数据的数量限制在255个字符之内 D.get方法传递的数据对客户端是不可见的 
+7、在DOM对象模型中，下列选项中的（）对象位于DOM对象模型的第二层。（选择二项） (  ) 
+A．history B.document C.button D.text
+8、在Javascript中，对于浏览器对象的层次关系理解正确的是（）（选择二项）     (   ) 
+A.window对象是所有页面内容的根对象 
+B.document对象包含location对象和history对象 C.location对象包含history 
+D.document对象包含form对象
+9、分析下面的Javascript代码段，输出结果是（  ） 
+var mystring=”I am a student”; var a=mystring.substring(9,13); document.write(a); 
+A．	stud  B.tuden  C.uden  D.udent
+10、在HTML页面中包含如下所示代码，则编写Javascript函数判断是否按下键盘上的回车键正确的编码是（  ） 
+<input name=”password” type=”text” onkeydown=”myKeyDown()”> 
+A. function myKeyDown(){ 
+if (window.keyCode==13)   alert(“你按下了回车键”); B. function myKeyDown(){ 
+if (document.keyCode==13)   alert(“你按下了回车键”); C. function myKeyDown(){ 
+if (event.keyCode==13)   alert(“你按下了回车键”); D. function myKeyDown(){ 
+if (keyCode==13) 
+alert(“你按下了回车键”);
+B. function myKeyDown(){ 
+if (document.keyCode==13)   alert(“你按下了回车键”); 
+C. function myKeyDown(){ 
+if (event.keyCode==13)   alert(“你按下了回车键”); 
+D. function myKeyDown(){ 
+if (keyCode==13)
+  alert(“你按下了回车键”);
+阅读下列代码回答11-13题 
+function SelectFather() { 
+div1.style.display='';  
+div1.style.left = window.event.clientX+10;  
+div1.style.top = window.event.clientY+10; 
+}
+ 11、 对上述方法理解正确的是（  ） 
+a) 这个方法的返回值为空 b) SelectFather()是方法名 
+c) 方法有语法错误，因为没有return 
+d) 方法有语法错误，因为没有指定返回类型 
+12、 关于div1理解错误的是（  ） 
+a) 可以推断出div1应该有一个样式为：position:absolute 
+b) div1是一个标签的ID 
+c) div1一定是一个<div>标签 
+d) 上述选项中一定有一个是错误的
+13、 对此方法的意义理解正确的是（  ） 
+a) div1.style.left是表示div1的左对齐样式 
+b) div1.style.top是表示div1的垂直对齐样式 
+c) div1的位置与鼠标的位置一定有关系 
+d) window.event.clientX是表示滚动条的长度
+14、下列程序的输出是（ ）
+[typeof null, null instanceof Object]
+A: ["object", false]
+B: [null, false]
+C: ["object", true]
+D: other
+15、下列程序的输出是（ ）
+[ [3,2,1].reduce(Math.pow), [].reduce(Math.pow)] ]
+A: an error
+B: [9, 0]
+C: [9, NaN]
+D: [9, undefined]
+16、
+下列程序的输出是（ ）
+var val = 'smtg';
+console.log('Value is ' + (val === 'smtg') ? 'Something' : 'Nothing');
+A: Value is Something
+B: Value is Nothing
+C: NaN
+D: other
+17、下列程序的输出是（ ）
+var name = 'World!';
+(function () {
+    if (typeof name === 'undefined') {
+        var name = 'Jack';
+        console.log('Goodbye ' + name);
+    } else {
+        console.log('Hello ' + name);
+    }
+})();
+A: Goodbye Jack
+B: Hello Jack
+C: Hello undefined
+D: Hello World
+18、下列程序的输出是（ ）
+var END = Math.pow(2, 53);
+var START = END - 100;
+var count = 0;
+for (var i = START; i <= END; i++) {
+    count++;
+}
+console.log(count);
+A: 0
+B: 100
+C: 101
+D: other
+19、下列程序的输出是（ ）
+var ary = [0,1,2];
+ary[10] = 10;
+ary.filter(function(x) { return x === undefined;});
+A: [undefined × 7]
+B: [0, 1, 2, 10]
+C: []
+D: [undefined]
+20、下列程序的输出是（ ）
+var two   = 0.2
+var one   = 0.1
+var eight = 0.8
+var six   = 0.6
+[two - one == one, eight - six == two]
+A: [true, true]
+B: [false, false]
+C: [true, false]
+D: other
+20、下列程序的输出是（ ）
+function showCase(value) {
+    switch(value) {
+    case 'A':
+        console.log('Case A');
+        break;
+    case 'B':
+        console.log('Case B');
+        break;
+    case undefined:
+        console.log('undefined');
+        break;
+    default:
+        console.log('Do not know!');
+    }
+}
+showCase(new String('A'));
+A: Case A
+B: Case B
+C: Do not know!
+D: undefined
+21、下列程序的输出是（ ）
+function showCase2(value) {
+    switch(value) {
+    case 'A':
+        console.log('Case A');
+        break;
+    case 'B':
+        console.log('Case B');
+        break;
+    case undefined:
+        console.log('undefined');
+        break;
+    default:
+        console.log('Do not know!');
+    }
+}
+showCase(String('A'));
+A: Case A
+B: Case B
+C: Do not know!
+D: undefined
+22、下列程序的输出是（ ）
+function isOdd(num) {
+    return num % 2 == 1;
+}
+function isEven(num) {
+    return num % 2 == 0;
+}
+function isSane(num) {
+    return isEven(num) || isOdd(num);
+}
+var values = [7, 4, '13', -9, Infinity];
+values.map(isSane);
+A: [true, true, true, true, true]
+B: [true, true, true, true, false]
+C: [true, true, true, false, false]
+D: [true, true, false, false, false]
+23、下列程序的输出是（ ）
+parseInt(3, 8)
+parseInt(3, 2)
+parseInt(3, 0)
+A: 3, 3, 3
+B: 3, 3, NaN
+C: 3, NaN, NaN
+D: other
+24、下列程序的输出是（ ）
+Array.isArray( Array.prototype )
+A: true
+B: false
+C: error
+D: other
+25、下列程序的输出是（ ）
+var a = [0];
+if ([0]) { 
+  console.log(a == true);
+} else { 
+  console.log("wut");
+}
+A: true
+B: false
+C: "wut"
+D: other
+26、下列程序的输出是（ ）
+[] == []
+A: true
+B: false
+C: error
+D: other
+27、下列程序的输出是（ ）
+'5' + 3  
+'5' - 3  
+A: 53, 2
+B: 8, 2
+C: error
+D: other
+28、下列程序的输出是（ ）
+1 + - + + + - + 1 
+A: 2
+B: 1
+C: error
+D: other
+29、下列程序的输出是（ ）
+var ary = Array(3);
+ary[0]=2
+ary.map(function(elem) { return '1'; }); 
+A: [2, 1, 1]
+B: ["1", "1", "1"]
+C: [2, "1", "1"]
+D: other
+30、下列程序的输出是（ ）
+function sidEffecting(ary) { 
+  ary[0] = ary[2];
+}
+function bar(a,b,c) { 
+  c = 10
+  sidEffecting(arguments);
+  return a + b + c;
+}
+bar(1,1,1)
+A: 3
+B: 12
+C: error
+D: other
+1. 声明一个对象，给它加上name属性和show方法显示其name值，以下代码中正确的是（     ）
+A. var  obj = [name:”zhangsan”,show:function(){alert(name);}];
+B. var  obj = {name:”zhangsan”,show:”alert(this.name)”};
+C. var  obj = {name:”zhangsan”,show:function(){alert(name);}};
+D. var  obj = {name:”zhangsan”,show:function(){alert(this.name);}};
+2. 以下关于Array数组对象的说法不正确的是（       ）
+A. 对数组里数据的排序可以用sort函数，如果排序效果非预期，可以给sort函数加一个排序函数的参数
+B. reverse用于对数组数据的倒序排列
+C. 向数组的最后位置加一个新元素，可以用pop方法
+D. unshift方法用于向数组开头增加一个元素
+3. 要将页面的状态栏中显示“已经选中该文本框”，下列JavaScript语句正确的是（    ）
+A. window.status=”已经选中该文本框”
+B. document.status=”已经选中该文本框”
+C. window.screen=”已经选中该文本框”
+D. document.screen=”已经选中该文本框”
+4. 点击页面的按钮，使之打开一个新窗口，加载一个网页，以下JavaScript代码中可行的是（      ）
+A. <input type=”button”  target =”new”
+onclick=”open(‘new.html’, ‘_blank’) “/>
+B. <input type=”button” value=”new”
+onclick=”window.location=’new.html’;”/>
+C. <input type=”button” value=”new”
+onclick=” location.assign(‘new.html’);”/>
+D. <form target=”_blank” action=”new.html”>
+<input type=”submit” value=”new”/>
+</form>
+5. 使用JavaScript向网页中输出<h1>hello</h1>，以下代码中可行的是（   ）
+A. <script type=”text/javascript”>
+document.write(<h1>hello</h1>);
+</script>
+B. <script type=”text/javascript”>
+document.write(“<h1>hello</h1>”);
+</script>
+C. <script type=”text/javascript”>
+<h1>hello</h1>
+</script>
+6. 分析下面的代码：
+<html>
+<head>
+<script type=”text/javascript”>
+function writeIt (value) { document.myfm.first_text.value=value;}
+</script>
+</head>
+<body bgcolor=”#ffffff”>
+<form name=”myfm”>
+<input type=”text” name=”first_text”>
+<input type=”text” name=”second_text” onchange=”writeIt(value)”>
+</form>
+</body>
+</html>
+以下说法中正确的是（       ）
+A. 在页面的第二个文本框中输入内容后，当鼠标离开第二个文本框时，第一个文本框的内容不变
+B. 在页面的第一个文本框中输入内容后，当鼠标离开第一个文本框时，将在第二个文本框中复制第一个文本框的内容
+C. 在页面的第二个文本框中输入内容后，当鼠标离开第二个文本框时，将在第一个文本框中复制第二个文本框的内容
+7. 下面的JavaScript语句中，（     ）实现检索当前页面中的表单元素中的所有文本框，并将它们全部清空
+A. for(var i=0;i< form1.elements.length;i++) {
+if(form1.elements[i].type==”text”)
+form1.elements[i].value=””;}
+B. for(var i=0;i<document.forms.length;i++) {
+if(forms[0].elements[i].type==”text”)
+forms[0].elements[i].value=””;
+}
+C. if(document.form.elements.type==”text”)
+form.elements[i].value=””;
+D. for(var i=0;i<document.forms.length; i++){
+for(var j=0;j<document.forms[i].elements.length; j++){
+if(document.forms[i].elements[j].type==”text”)
+document.forms[i].elements[j].value=””;
+}
+}
+8. 在表单(form1)中有一个文本框元素(fname)，用于输入电话号码，格式如：010-82668155，要求前3位是010，紧接一个“–”，后面是8位数字。要求在提交表单时，根据上述条件验证该文本框中输入内容的有效性，下列语句中，（     ）能正确实现以上功能
+A. var str= form1.fname.value;
+if(str.substr(0,4)!=”010-” || str.substr(4).length!=8 ||
+isNaN(parseFloat(str.substr(4))))
+alert(“无效的电话号码！“);
+B. var str= form1.fname.value;
+if(str.substr(0,4)!=”010-”  &&  str.substr(4).length!=8  &&
+isNaN(parseFloat(str.substr(4))))
+alert(“无效的电话号码！“);
+C. var str= form1.fname.value;
+if(str.substr(0,3)!=”010-” || str.substr(3).length!=8 ||
+isNaN(parseFloat(str.substr(3))))
+alert(“无效的电话号码！“);
+D. var str= form1.fname.value;
+if(str.substr(0,4)!=”010-” && str.substr(4).length!=8  &&
+!isNaN(parseFloat(str.substr(4))))
+alert(“无效的电话号码！“);
+9. 关于正则表达式声明6位数字的邮编，以下代码正确的是（     ）
+A. var  reg = /\d6/;
+B. var  reg = \d{6}\;
+C. var  reg = /\d{6}/;
+D. var  reg = new RegExp(“\d{6}”);
+10. 关于JavaScript里的xml处理，以下说明错误的是（      ）
+A. Xml是种可扩展标记语言，格式更规范，是作为未来html的替代
+B. Xml一般用于传输和存储数据，是对html的补充，两者的目的不同
+C. 在JavaScript里解析和处理xml数据时，因为浏览器的不同，其做法也不同
+D. 在IE浏览器里处理xml，首先需要创建ActiveXObject对象
+ 
    
-   20. 关于 ``git diff`` 命令错误的说法是：_____
-   
-       a) ``git diff`` 可以在版本库之外执行，就像 GNU diff 命令一样操作，而且提供对二进制文件的支持。
-       b) ``git diff --binary`` 提供对二进制文件的支持。
-       c) ``git diff`` 格式的补丁文件需要使用 ``git apply`` 命令应用。
-       d) ``git diff`` 命令无输出，说明提交列表为空，无需提交。
+
    
    

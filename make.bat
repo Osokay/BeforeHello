@@ -1,6 +1,6 @@
 @ECHO OFF
 
-REM Command file for Sphinx documentation
+REM 使用Sphinx生成各种文档
 
 if "%SPHINXBUILD%" == "" (
 	set SPHINXBUILD=sphinx-build

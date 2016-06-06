@@ -12,21 +12,12 @@
 
   ::
 
-    $ git clone git://github.com/gotgit/git-quiz.git
+    $ git clone https://github.com/osokay/BeforeHello.git
 
-* 或者直接访问网址：
+*
 
-  http://www.worldhello.net/git-quiz/
-
-看到完整的测试题。
-
-问卷B和问卷A的相似度非常高，就请保留一些神秘性吧，好让问卷B能够承担一些\
-自测功能。\ *公开问卷B的答案是毫无必要和没有技术含量的。*
-
-BTW，问卷的设计是在北京到深圳的飞机上匆匆完成的，对我来说为错误答案而凑数\
-是最花脑筋的，不严谨之处敬请谅解。
+本问卷是参考蒋鑫先生出的git的目录结构来的, 蒋老师是国内最早(2008)使用和推进git的人,被称为git第一人也不为过,现在是git国际化的负责人,我们在git输入命令的时候,发现响应中都是中文,那都是蒋老师的贡献.
 
 ----
 
-.. [#] http://www.ossxp.com/doc/about-us/ossxp-services.pdf
-.. [#] 自备翻墙梯。
+.. [#] http://www.worldhello.net/git-quiz/
